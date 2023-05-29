@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Unit Converter</title>
+  <script>
+    function updateUnitOptions() {
+      var type = document.getElementById('type').value;
+      var distanceOptions = ['kilometers', 'miles', 'yards'];
+      var temperatureOptions = ['celsius', 'fahrenheit', 'kelvin'];
+      var weightOptions = ['kilograms', 'pounds', 'ounces'];
+
+      var fromUnit = document.getElementById('fromUnit');
+      var toUnit = document.getElementById('toUnit');
+
+      // Clear previous options
+      fromUnit.innerHTML = '';
+      toUnit.innerHTML = '';
+
+      // Set relevant options based on type
+      var options = [];
+      if (type === 'distance') {
+        options = distanceOptions;
+      } else if (type === 'temperature') {
+        options = temperatureOptions;
+      } else if (type === 'weight') {
+        options = weightOptions;
+      }
+
+      // Add options to select elements
+      for (var i = 0; i < options.length; i++) {
+        var option = document.createElement('option');
+        option.value = options[i];
+        option.text = options[i].charAt(0).toUpperCase() + options[i].slice(1);
+        fromUnit.appendChild(option);
+
+        option = document.createElement('option');
+        option.value = options[i];
+        option.text = options[i].charAt(0).toUpperCase() + options[i].slice(1);
+        toUnit.appendChild(option);
+      }
+    }
+  </script>
+</head>
+<body>
+  <h1>Unit Converter</h1>
+  <form action="/converter" method="post">
+    <label for="value">Value:</label>
+    <input type="number" name="value" id="value" step="any" required>
+
+    <label for="type">Conversion Type:</label>
+    <select name="type" id="type" onchange="updateUnitOptions()" required>
+      <option value="distance">Distance</option>
+      <option value="temperature">Temperature</option>
+      <option value="weight">Weight</option>
+    </select>
+
+    <label for="fromUnit">From:</label>
+    <select name="fromUnit" id="fromUnit" required></select>
+
+    <label for="toUnit">To:</label>
+    <select name="toUnit" id="toUnit" required></select>
+
+    <button type="submit">Convert</button>
+  </form>
+
+  <% if (result !== null) { %>
+    <h2>Result: <%= result.toFixed(2) %></h2>
+  <% } %>
+
+
+  <!-- Links to other pages -->
+  <a href="/landing">Go back to main page</a>
+  <a href="/calculator">Go to calculator</a>
+
+  <script>
+    updateUnitOptions();
+  </script>
+</body>
+</html>

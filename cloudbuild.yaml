@@ -1,0 +1,11 @@
+steps:
+  - name: "gcr.io/cloud-builders/docker"
+    args:
+      [
+        "build",
+        "-t",
+        "us-west2-docker.pkg.dev/sit323-23t1-kingsbury-37a7a8c/quickstart-docker-repo/calculator-image:tag1",
+        ".",
+      ]
+images:
+  - "us-west2-docker.pkg.dev/sit323-23t1-kingsbury-37a7a8c/quickstart-docker-repo/calculator-image:tag1"

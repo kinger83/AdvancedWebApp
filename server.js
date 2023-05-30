@@ -31,6 +31,10 @@ app.set('view engine', 'ejs');
 // Set the views directory
 app.set('views', __dirname + '/views');
 
+
+
+
+
 // Extract token from header
 const jwtOptions = {
     jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -97,6 +101,14 @@ console.log('Password:', password);
     }
 });
   
+
+app.get('/signup', (req, res) => {
+  // Get the user's name from your authorization logic
+  const userName = 'John Doe'; // Replace with actual username
+
+  // Render the landing page template with the user's name
+  res.render('signup', { name: userName });
+});
   // Signup route
   app.post('/signup', (req, res) => {
     const { username, password } = req.body;
@@ -114,13 +126,7 @@ console.log('Password:', password);
     
   });
 
-  app.get('/signup', (req, res) => {
-    // Get the user's name from your authorization logic
-    const userName = 'John Doe'; // Replace with actual username
   
-    // Render the landing page template with the user's name
-    res.render('signup', { name: userName });
-  });
 
   // Add a logout route
 app.get('/logout', (req, res) => {
@@ -257,6 +263,8 @@ function convertDistance(value, fromUnit, toUnit) {
   
     res.render('converter', { result, type }); // Pass the 'type' variable to the template
   });
+
+
 
 
 app.listen(PORT, HOST, () => {

@@ -1,11 +1,20 @@
 steps:
+  # Build Docker Image
   - name: "gcr.io/cloud-builders/docker"
+    args: ["build", "-t", "gcr.io/${PROJECT_ID}/calculator:$COMMIT_SHA", "."]
+
+  # Docker Push
+  - name: "gcr.io/cloud-builders/docker"
+    args: ["push", "gcr.io/${PROJECT_ID}/calculator:$COMMIT_SHA"]
+
+  - name: "gcr.io/cloud-builders/kubectl"
     args:
       [
-        "build",
-        "-t",
-        "us-west2-docker.pkg.dev/sit323-23t1-kingsbury-37a7a8c/quickstart-docker-repo/calculator-image:tag1",
-        ".",
+        "set",
+        "image",
+        "deployment/calculator-deployment",
+        "calculator=gcr.io/sit323-23t1-kingsbury-37a7a8c/calculator:$COMMIT_SHA",
       ]
-images:
-  - "us-west2-docker.pkg.dev/sit323-23t1-kingsbury-37a7a8c/quickstart-docker-repo/calculator-image:tag1"
+    env:
+      - "CLOUDSDK_COMPUTE_ZONE=us-west1"
+      - "CLOUDSDK_CONTAINER_CLUSTER=calculator-cluster"

@@ -1,0 +1,56 @@
+version: '3'
+services:
+  login:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8081:8080
+    volumes:
+      - ./views:/app/views
+    environment:
+      - PAGE_PATH=/login
+
+  signup:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8082:8080
+    volumes:
+      - ./views:/app/views
+    environment:
+      - PAGE_PATH=/signup
+
+  landing:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8083:8080
+    volumes:
+      - ./views:/app/views
+    environment:
+      - PAGE_PATH=/landing
+
+  calculator:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8084:8080
+    volumes:
+      - ./views:/app/views
+    environment:
+      - PAGE_PATH=/calculator
+
+  converter:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 8085:8080
+    volumes:
+      - ./views:/app/views
+    environment:
+      - PAGE_PATH=/converter

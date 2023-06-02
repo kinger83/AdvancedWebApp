@@ -1,16 +1,17 @@
+# Specify the base image
+FROM node:16
 
-FROM node:14
-
+# Set the working directory inside the container
 WORKDIR /app
 
-COPY package.json package-lock.json ./
+# Copy package.json and package-lock.json to the working directory
+COPY package*.json ./
 
+# Install dependencies
 RUN npm install
 
+# Copy the entire app directory to the working directory
 COPY . .
 
-ENV VIEWS_DIR=/app/views
-
-EXPOSE 8080
-
-CMD ["node", "server.js"]
+# Set the command to run the app
+CMD [ "npm", "start" ]
